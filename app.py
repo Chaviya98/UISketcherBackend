@@ -33,23 +33,22 @@ def extract_data():
 
         # json_format = json.dumps(entity_recognition)
 
-
-        if len(entity_recognition) < 2:
-            # Preparing the response json
-            response_type = {
-                "data": {
-                    "element": ent.text for ent in doc2.ents
-                }
-            }
-            return response_type
+        if len(entity_recognition) == 0:
+            print("No UI elements detected")
 
         else:
-            return {
-                "data": {},
-                "errorType": "Multiple UI Element Detected"
-            }
+            if len(entity_recognition) < 2:
+                # Preparing the response json
+                response_type = {
+                    "data": {
+                        "element": ent.text for ent in doc2.ents
+                    }
+                }
+                print(response_type)
+            else:
+                print("Multiple UI Element Detected")
 
 
-if __name__ == '__main__' :
+if __name__ == '__main__':
     app.run()
 

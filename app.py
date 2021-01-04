@@ -7,7 +7,9 @@ app = Flask(__name__)
 CORS(app)
 nlp = spacy.load("en_core_web_sm")
 ruler = EntityRuler(nlp)
-patterns = [{"label": "UI", "pattern": "button"}, {"label": "UI", "pattern": "input"}]
+patterns = [{"label": "UI", "pattern": "button"}, {"label": "UI", "pattern": "textinput"},
+            {"label": "UI", "pattern": "card"}, {"label": "UI", "pattern": "imageview"},
+            {"label": "UI", "pattern": "header"}, {"label": "UI", "pattern": "textview"}]
 ruler.add_patterns(patterns)
 nlp.add_pipe(ruler)
 all_stopwords = nlp.Defaults.stop_words
@@ -44,7 +46,7 @@ def extract_data():
                         "element": ent.text for ent in doc2.ents
                     }
                 }
-                print(response_type)
+                return response_type
             else:
                 print("Multiple UI Element Detected")
 

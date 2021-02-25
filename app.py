@@ -41,10 +41,10 @@ def extract_data():
     if len(entity_recognition) == 0:
         response_type = {
             "data": {
-                "element": "",
-                "attribute": ""
-            },
-            "error": "No UI elements detected"
+                "element": "null",
+                "attribute": "null",
+                "error": "No UI elements detected"
+            }
         }
         return response_type
     else:
@@ -53,18 +53,18 @@ def extract_data():
             response_type = {
                 "data": {
                     "element": ' '.join(map(str, [ent.text for ent in doc_after_text_processing.ents])),
-                    "attribute": attribute_value
-                },
-                "error": ""
+                    "attribute": attribute_value,
+                     "error": "null"
+                }
             }
             return response_type
         else:
             response_type = {
                 "data": {
-                    "element": "",
-                    "attribute": ""
-                },
-                "error": "Multiple UI Element Detected"
+                    "element": "null",
+                    "attribute": "null",
+                    "error": "Multiple UI Element Detected"
+                }
             }
             return response_type
 

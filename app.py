@@ -11,7 +11,7 @@ ruler = nlp.add_pipe("entity_ruler")
 patterns = [{"label": "UI", "pattern": "button"}, {"label": "UI", "pattern": "input"},
             {"label": "UI", "pattern": "card"}, {"label": "UI", "pattern": "image"},
             {"label": "UI", "pattern": "header"}, {"label": "UI", "pattern": "text"},
-            {"label": "UI", "pattern": "label"}]
+            {"label": "UI", "pattern": "label"}, {"label": "UI", "pattern": "navbar"}]
 ruler.add_patterns(patterns)
 all_stopwords = nlp.Defaults.stop_words
 
@@ -55,7 +55,7 @@ def extract_data():
                 "data": {
                     "element": ' '.join(map(str, [ent.text for ent in doc_after_text_processing.ents])),
                     "attribute": attribute_value,
-                     "error": "null"
+                    "error": "null"
                 }
             }
             return response_type

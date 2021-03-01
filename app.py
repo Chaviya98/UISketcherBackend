@@ -8,14 +8,15 @@ nlp = spacy.load("en_core_web_sm")
 lemmatizer = nlp.get_pipe("lemmatizer")
 ruler = nlp.add_pipe("entity_ruler")
 # supported UI elements
-patterns = [{"label": "UI", "pattern": "button"}, {"label": "UI", "pattern": "textinput"},
-            {"label": "UI", "pattern": "card"}, {"label": "UI", "pattern": "imageview"},
-            {"label": "UI", "pattern": "header"}, {"label": "UI", "pattern": "textview"}]
+patterns = [{"label": "UI", "pattern": "button"}, {"label": "UI", "pattern": "input"},
+            {"label": "UI", "pattern": "card"}, {"label": "UI", "pattern": "image"},
+            {"label": "UI", "pattern": "header"}, {"label": "UI", "pattern": "text"},
+            {"label": "UI", "pattern": "label"}]
 ruler.add_patterns(patterns)
 all_stopwords = nlp.Defaults.stop_words
 
 # supported attributes
-attribute_list = ['title', 'placeholder']
+attribute_list = ['title', 'placeholder', 'value']
 
 
 @app.route('/extract/data', methods=['GET', 'POST'])

@@ -18,6 +18,8 @@ all_stopwords = nlp.Defaults.stop_words
 # supported attributes
 attribute_list = ['title', 'placeholder', 'value']
 
+# supported size
+size_list = ['size', 'height']
 
 @app.route('/extract/data', methods=['GET', 'POST'])
 def extract_data():
@@ -38,6 +40,12 @@ def extract_data():
 
     # Extraction of attribute value if there is any
     attribute_value = extract_attribute(attribute_list, tokens)
+    size_value = extract_size(size_list, tokens)
+
+    if size_value == "small":
+        size_value = 1
+    else :
+        size_value = 2
 
     if len(entity_recognition) == 0:
         response_type = {
@@ -55,6 +63,7 @@ def extract_data():
                 "data": {
                     "element": ' '.join(map(str, [ent.text for ent in doc_after_text_processing.ents])),
                     "attribute": attribute_value,
+                    "size": size_value,
                     "error": "null"
                 }
             }
@@ -78,6 +87,14 @@ def extract_attribute(attributes, tokens):
             elif term == t:
                 return tokens[tokens.index(term) + 1]
 
+
+def extract_size(sizes, tokens):
+    for t in sizes:
+        for term in tokens:
+            if term != t:
+                pass
+            elif term == t:
+                return tokens[tokens.index(term) + 1]
 
 if __name__ == '__main__':
     app.run()

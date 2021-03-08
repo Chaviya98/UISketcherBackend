@@ -16,10 +16,11 @@ ruler.add_patterns(patterns)
 all_stopwords = nlp.Defaults.stop_words
 
 # supported attributes
-attribute_list = ['title', 'placeholder', 'value']
+supported_attribute_list = ['title', 'placeholder', 'value']
 
 # supported size
-size_list = ['size', 'height']
+supported_size_list = ['size', 'height']
+
 
 @app.route('/extract/data', methods=['GET', 'POST'])
 def extract_data():
@@ -39,12 +40,14 @@ def extract_data():
     entity_recognition = [(ent.text, ent.label_) for ent in doc_after_text_processing.ents]
 
     # Extraction of attribute value if there is any
-    attribute_value = extract_attribute(attribute_list, tokens)
-    size_value = extract_size(size_list, tokens)
+    attribute_value = extract_attribute(supported_attribute_list, tokens)
+
+    # Extraction of size value if there is any
+    size_value = extract_size(supported_size_list, tokens)
 
     if size_value == "small":
         size_value = 1
-    else :
+    else:
         size_value = 2
 
     if len(entity_recognition) == 0:
@@ -95,6 +98,7 @@ def extract_size(sizes, tokens):
                 pass
             elif term == t:
                 return tokens[tokens.index(term) + 1]
+
 
 if __name__ == '__main__':
     app.run()

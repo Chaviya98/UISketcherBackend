@@ -4,6 +4,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+# loading english model
 nlp = spacy.load("en_core_web_sm")
 lemmatizer = nlp.get_pipe("lemmatizer")
 ruler = nlp.add_pipe("entity_ruler")
@@ -24,16 +25,16 @@ supported_size_list = ['size', 'height']
 
 @app.route('/extract/data', methods=['GET', 'POST'])
 def extract_data():
-    # Preparing data for tokenizing
+    # Preparation of data for tokenizing
     doc = nlp(" ".join(request.data.decode('UTF-8').lower().split()))
 
-    # Lemmatisation process
+    # Lemmatization process
     doc_after_lemmatizer = nlp(' '.join(map(str, [token.lemma_ for token in doc])))
 
-    # Tokenizing , stop words removing and unnecessary characters removing
+    # Tokenization , removal of stop words and unnecessary characters
     tokens = [token.text for token in doc_after_lemmatizer if not token.is_punct if not token.is_stop]
 
-    # Preparing to entity recognition
+    # Preparation for entity recognition
     doc_after_text_processing = nlp(' '.join(map(str, tokens)))
 
     # entity recognition
@@ -55,6 +56,7 @@ def extract_data():
             "data": {
                 "element": "null",
                 "attribute": "null",
+                "size": "null",
                 "error": "No UI elements detected"
             }
         }
@@ -76,6 +78,7 @@ def extract_data():
                 "data": {
                     "element": "null",
                     "attribute": "null",
+                    "size": "null",
                     "error": "Multiple UI Element Detected"
                 }
             }

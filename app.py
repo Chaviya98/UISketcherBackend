@@ -52,7 +52,7 @@ def extract_data():
         size_value = 2
 
     if len(entity_recognition) == 0:
-        response_type = {
+        response = {
             "data": {
                 "element": "null",
                 "attribute": "null",
@@ -60,11 +60,11 @@ def extract_data():
                 "error": "No UI elements detected"
             }
         }
-        return response_type
+        return response
     else:
         if len(entity_recognition) < 2:
             # Preparing the response json
-            response_type = {
+            response = {
                 "data": {
                     "element": ' '.join(map(str, [ent.text for ent in doc_after_text_processing.ents])),
                     "attribute": attribute_value,
@@ -72,9 +72,9 @@ def extract_data():
                     "error": "null"
                 }
             }
-            return response_type
+            return response
         else:
-            response_type = {
+            response = {
                 "data": {
                     "element": "null",
                     "attribute": "null",
@@ -82,7 +82,7 @@ def extract_data():
                     "error": "Multiple UI Element Detected"
                 }
             }
-            return response_type
+            return response
 
 
 def extract_attribute(attributes, tokens):

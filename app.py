@@ -12,7 +12,7 @@ ruler = nlp.add_pipe("entity_ruler")
 patterns = [{"label": "UI", "pattern": "button"}, {"label": "UI", "pattern": "input"},
             {"label": "UI", "pattern": "card"}, {"label": "UI", "pattern": "image"},
             {"label": "UI", "pattern": "header"}, {"label": "UI", "pattern": "text"},
-            {"label": "UI", "pattern": "label"}, {"label": "UI", "pattern": "navbar"}]
+            {"label": "UI", "pattern": "label"}]
 ruler.add_patterns(patterns)
 all_stopwords = nlp.Defaults.stop_words
 
